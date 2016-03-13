@@ -1,3 +1,4 @@
+# coding:utf-8
 # Copyright 2001-2007 by Vinay Sajip. All Rights Reserved.
 #
 # Permission to use, copy, modify, and distribute this software and its

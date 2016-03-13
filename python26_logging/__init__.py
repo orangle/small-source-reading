@@ -1,3 +1,4 @@
+# coding:utf-8
 # Copyright 2001-2009 by Vinay Sajip. All Rights Reserved.
 #
 # Permission to use, copy, modify, and distribute this software and its
@@ -306,6 +307,8 @@ class LogRecord:
                     msg = self.msg      #Defer encoding till later
         if self.args:
             msg = msg % self.args
+
+        print 'LogRecord.getMessage'
         return msg
 
 def makeLogRecord(dict):
@@ -656,6 +659,7 @@ class Handler(Filterer):
         return fmt.format(record)
 
     def emit(self, record):
+        #每个handler必须要实现的方法
         """
         Do whatever it takes to actually log the specified logging record.
 
@@ -1368,6 +1372,7 @@ Logger.manager = Manager(Logger.root)
 #basic 默认的格式
 BASIC_FORMAT = "%(levelname)s:%(name)s:%(message)s"
 
+#这个方法就是用来设置默认的root logger
 def basicConfig(**kwargs):
     """
     Do basic configuration for the logging system.
@@ -1480,6 +1485,9 @@ def warning(msg, *args, **kwargs):
 
 warn = warning
 
+
+#这些不同日志级别 在没有特意设置root logger的时候
+#都会用basicConfig 处理日志
 def info(msg, *args, **kwargs):
     """
     Log a message with severity 'INFO' on the root logger.
@@ -1528,6 +1536,7 @@ def shutdown(handlerList=_handlerList):
                 raise
             #else, swallow
 
+#感觉有点类似信号，在程序退出的时候调用
 #Let's try and shutdown automatically on application exit...
 try:
     import atexit

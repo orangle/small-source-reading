@@ -1,3 +1,4 @@
+# coding:utf-8
 # Copyright 2001-2007 by Vinay Sajip. All Rights Reserved.
 #
 # Permission to use, copy, modify, and distribute this software and its
@@ -270,6 +271,7 @@ def _install_loggers(cp, handlers, disable_existing_loggers):
             logger.disabled = 1
 
 
+#基于文件的配置 会启动一个socket服务来获取配置文件的变化
 def listen(port=DEFAULT_LOGGING_CONFIG_PORT):
     """
     Start up a socket server on the specified port, and listen for new
