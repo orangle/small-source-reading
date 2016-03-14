@@ -917,6 +917,7 @@ def getLoggerClass():
     return _loggerClass
 
 class Manager:
+    #关于不同logger的继承关系是在getlogger阶段来处理的，自动处理关系
     """
     There is [under normal circumstances] just one Manager instance, which
     holds the hierarchy of loggers.
@@ -960,6 +961,8 @@ class Manager:
                 self._fixupParents(rv)
         finally:
             _releaseLock()
+
+        print self.loggerDict
         return rv
 
     def _fixupParents(self, alogger):
@@ -1185,6 +1188,8 @@ class Logger(Filterer):
         This method is used for unpickled records received from a socket, as
         well as those created locally. Logger-level filtering is applied.
         """
+
+        #在日志没有被禁用并且fitler没有过滤掉的情况才会handler
         if (not self.disabled) and self.filter(record):
             self.callHandlers(record)
 
